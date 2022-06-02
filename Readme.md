@@ -5,14 +5,16 @@ A1, C1, C2, C3, C4, D1, D2, D3, E1, E2, E3, E4, E5, E6, F1, G1, G2, H1, I1, I2, 
 
 TODO: <br>
 Ryan:<br>
-C - mapper, 4 commands <br>
-E6 - TBD<br>
+C - mapper, 4 commands - IMPLEMENTED - NEEDS TESTING <br>
+E - E6 is TBD - 1-5 are IMPLEMENTED - NEEDS TESTING<br>
+F - network commands - IMPLEMENTED - NEEDS TESTING<br>
 
 not able to yet:<br>
 D - Message- TBD<br>
 
 
 Tyler:<br>
+A - Actuator command, IMPLEMENTED, probably NEEDS TESTING <br>
 G - Reporter commands, 2 commands<br>
 
 
