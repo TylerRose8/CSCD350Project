@@ -58,11 +58,27 @@ public class ParseMeta {
 
 
 	private static void createClock(A_ParserHelper parserHelper, String[] command) {
+				Clock clock = Clock.getInstance();
+
+				if(command.length == 1) {
+					System.out.println(clock.getTime());
+					return;
+				}
 				String type = command[1].toUpperCase();
+				
 				String value;
 				int val;
-				Clock clock = Clock.getInstance();
+				double valDouble;
 				switch(type) {
+				case "WAIT":
+					valDouble = Double.parseDouble(command[3]);
+					if(command[2].toUpperCase().equals("FOR")) {
+							clock.waitFor(valDouble);
+					}
+					else if(command[2].toUpperCase().equals("UNTIL")) {
+							clock.waitUntil(valDouble);
+					}
+					break;
 				case "PAUSE":
 					clock.isActive(false);
 					break;
