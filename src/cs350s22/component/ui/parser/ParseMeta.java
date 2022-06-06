@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import cs350s22.component.logger.LoggerMessage;
 import cs350s22.component.logger.LoggerMessageSequencing;
-import cs350s22.network.Network;
 import cs350s22.support.Clock;
 import cs350s22.support.Filespec;
 
@@ -45,13 +44,13 @@ public class ParseMeta {
 				case "SEQUENCE":
 					i++;
 					Filespec filepathTwo = Filespec.make(command[i]);
-					LoggerMessageSequencing.initialize(filepathTwo, LoggerMessageSequencing.getInstance().getFilespecText());
-					//I dont think this works either, but I can't figure out how to fix it.
-					break;
-				case "NETWORK":
-					//don't know how to do @configure, javadoc is unfinished.
-					break;
-				case "XML":
+					Filespec filepathThree = null;
+					i++;
+					if(command[i].toUpperCase().equals("NETWORK")) {
+						i++;
+						filepathThree = Filespec.make(command[i]);
+					}
+					LoggerMessageSequencing.initialize(filepathTwo, filepathThree);
 					break;
 			}
 		}
