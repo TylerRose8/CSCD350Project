@@ -9,13 +9,11 @@ C - mapper, 4 commands - IMPLEMENTED - NEEDS TESTING <br>
 E - E6 is TBD - 1-5 are IMPLEMENTED - NEEDS TESTING<br>
 F - network commands - IMPLEMENTED - NEEDS TESTING<br>
 
-not able to yet:<br>
-D - Message- TBD<br>
-
 
 Tyler:<br>
 A - Actuator command, IMPLEMENTED, probably NEEDS TESTING <br>
-G - Reporter commands, 2 commands<br>
+D - Message- TBD, 3 commands<br>
+G - Reporter commands, 2 commands, IMPLEMENTED, probably NEEDS TESTING <br>
 
 
 Spencer:<br>
