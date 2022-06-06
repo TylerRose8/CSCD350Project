@@ -34,6 +34,7 @@ public class ParseNetwork {
         		list.add(sensor);
 
         		parserHelper.getControllerMaster().addComponents(list);
+        		parserHelper.getNetwork().writeOutput();
         		break;
         		
         	case "COMPONENTS":
@@ -49,7 +50,7 @@ public class ParseNetwork {
             		list.add(sensor);
 
             		parserHelper.getControllerMaster().addComponents(list);
-
+            		parserHelper.getNetwork().writeOutput();
         		}
         		break;
         		
