@@ -1,107 +1,77 @@
 package cs350s22.component.ui.parser;
 
+import cs350s22.message.actuator.MessageActuatorReportPosition;
+import cs350s22.message.actuator.MessageActuatorRequestPosition;
+import cs350s22.message.ping.MessagePing;
+import cs350s22.support.Identifier;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class ParseMessage {
     public static void parseMessageCommand(A_ParserHelper parserHelper, String command) throws ParseException {
-        if(command.ToUppercase().contains("PING"){
-            sendMessagePing(parserHelper, command);
-        } else if( command.ToUpperCase().contians("POSITION REQUEST"){
+        if (command.toUpperCase().contains("PING")) {
+            sendMessagePing(parserHelper);
+        } else if (command.toUpperCase().contains("POSITION REQUEST")) {
             sendMessagePositionRequest(parserHelper, command);
-        } else if( command.ToUpperCase().contians("POSITION REPORT"){
+        } else if (command.toUpperCase().contains("POSITION REPORT")) {
             sendMessagePositionReport(parserHelper, command);
         } else {
             throw new ParseException("Undefined message command.");
         }
     }
 
-    private static void sendMessagePing(A_ParserHelper parserHelper, String command) throws ParseException {
-
+    private static void sendMessagePing(A_ParserHelper parserHelper) {
+        parserHelper.getCommandLineInterface().issueMessage(new MessagePing());
     }
 
     private static void sendMessagePositionRequest(A_ParserHelper parserHelper, String command) throws ParseException {
+        ArrayList<ArrayList<Identifier>> messageIdsAndGroups = getMessageIDsAndGroups(command);
+        try {
+            double value = Double.parseDouble(command.split(" ")[command.split(" ").length - 1]);
+            if (!messageIdsAndGroups.get(0).isEmpty()) {
+                MessageActuatorRequestPosition reportToIds = new MessageActuatorRequestPosition(messageIdsAndGroups.get(0), value);
+                parserHelper.getCommandLineInterface().issueMessage(reportToIds);
+            } else if (!messageIdsAndGroups.get(1).isEmpty()) {
+                MessageActuatorRequestPosition reportToGroups = new MessageActuatorRequestPosition(messageIdsAndGroups.get(1), value);
+                parserHelper.getCommandLineInterface().issueMessage(reportToGroups);
+            }
+        } catch (Exception e) {
+            throw new ParseException("Bad value sent in MessagePositionRequest: " + command.split(" ")[command.split(" ").length - 1]);
+        }
+    }
+
+    private static void sendMessagePositionReport(A_ParserHelper parserHelper, String command) {
+        ArrayList<ArrayList<Identifier>> messageIdsAndGroups = getMessageIDsAndGroups(command);
+        if (!messageIdsAndGroups.get(0).isEmpty()) {
+            MessageActuatorReportPosition reportToIds = new MessageActuatorReportPosition(messageIdsAndGroups.get(0));
+            parserHelper.getCommandLineInterface().issueMessage(reportToIds);
+        } else if (!messageIdsAndGroups.get(1).isEmpty()) {
+            MessageActuatorReportPosition reportToGroups = new MessageActuatorReportPosition(messageIdsAndGroups.get(1));
+            parserHelper.getCommandLineInterface().issueMessage(reportToGroups);
+        }
 
     }
 
-    private static void sendMessagePositionReport(A_ParserHelper parserHelper, String command) throws ParseException {
-
-    }
-
-    private static List<List<Identifier>> getMessageIDsAndGroups(String command){
+    private static ArrayList<ArrayList<Identifier>> getMessageIDsAndGroups(String command) {
         //Get the ID's to send the message to.
-        List<Identifier> sendToIds = new List<Identifier>();
-        Scanner in = new Scanner(command.substring(command.toUpperCase().indexOf("MESSAGE") + 7, command.toUpperCase().indexOf("GROUPS") == -1 ? command.toUpperCase().indexOf("POSITION") : command.toUpperCase().indexOf("GROUPS")));
-        while(in.hasNext()){
-            sendToIds.add(Identifier.parseIdentifier(in.next()));
+        ArrayList<Identifier> sendToIds = new ArrayList<>();
+        Scanner in = new Scanner(command.substring(command.toUpperCase().indexOf("MESSAGE") + 7, !command.toUpperCase().contains("GROUPS") ? command.toUpperCase().indexOf("POSITION") : command.toUpperCase().indexOf("GROUPS")));
+        while (in.hasNext()) {
+            sendToIds.add(Identifier.make(in.next()));
         }
 
         //Get the groups to send the message to.
-        List<Group> sendToGroups = new List<Group>();
-        if(command.toUpperCase().indexOf("GROUPS") != -1){
+        ArrayList<Identifier> sendToGroups = new ArrayList<>();
+        if (command.toUpperCase().contains("GROUPS")) {
             in = new Scanner(command.substring(command.toUpperCase().indexOf("GROUPS") + 7, command.toUpperCase().indexOf("POSITION")));
-            while(in.hasNext()){
-                sendToGroups.add(Group.parseGroup(in.next()));
+            while (in.hasNext()) {
+                sendToGroups.add(Identifier.make(in.next()));
             }
         }
-        List<List<Identifier>> idsAndGroups = new List<List<Identifier>>();
+        ArrayList<ArrayList<Identifier>> idsAndGroups = new ArrayList<>();
         idsAndGroups.add(sendToIds);
         idsAndGroups.add(sendToGroups);
         return idsAndGroups;
     }
-
-    private static void createNewActuator(A_ParserHelper parserHelper, String command) throws ParseException {
-        //Get the actuator type and ID
-        String[] commandSplit = command.split(" ");
-        String actuatorType = commandSplit[2];
-        Identifier actuatorId = Identifier.make(commandSplit[3]);
-
-        //Find the groups to put the actuator in
-        int groupsLastIndex = command.toUpperCase().indexOf("SENSOR") - 1 == -1 ? command.toUpperCase().indexOf("ACCELERATION") - 1 : command.toUpperCase().indexOf("SENSOR") - 1;
-        String groupParams = command.substring(command.toUpperCase().indexOf("GROUP") + 5, groupsLastIndex);
-        List<Identifier> groups = Identifier.makeList(groupParams.split(" "));
-
-        //Get all numeric parameters of the actuator
-        String valueParams = command.substring(command.toUpperCase().indexOf("ACCELERATION") + 13);
-        Scanner in = new Scanner(valueParams);
-        in.useDelimiter(" ");
-        String paramName = in.next();
-        String[] params = {"LEADIN", "LEADOUT", "RELAX", "VELOCITY LIMIT", "VALUE MIN", "MAX", "INITIAL", "JERK LIMIT"};
-        Map<String, Double> actuatorParams = new HashMap<>();
-        for (String param : params) {
-            if (param.contains(paramName)) {
-                if (param.contains(" ")) {
-                    in.next();
-                }
-                actuatorParams.put(param, in.nextDouble());
-            } else {
-                throw new ParseException("Invalid actuator parameter or parameters out of order");
-            }
-            if (in.hasNext()) {
-                paramName = in.next();
-            }
-        }
-
-        //Find the sensors to put the actuator and put it in symbol table
-        int sensorsLastIndex = command.toUpperCase().indexOf("ACCELERATION") - 1 == -1 ? -1 : command.toUpperCase().indexOf("ACCELERATION") - 1;
-        List<A_Sensor> sensors = new ArrayList<>();
-        if (sensorsLastIndex == -1) {
-            String sensorParams = command.substring(command.toUpperCase().indexOf("SENSOR") + 6);
-            String[] sensorIdArray = sensorParams.split(" ");
-            for (String sensorId : sensorIdArray) {
-                SymbolTable<A_Sensor> sensorTable = parserHelper.getSymbolTableSensor();
-                sensors.add(sensorTable.get(Identifier.make(sensorId)));
-            }
-            ActuatorPrototype prototype = new ActuatorPrototype(actuatorId, groups, actuatorParams.get("LEADIN"), actuatorParams.get("LEADOUT"), actuatorParams.get("RELAX"), actuatorParams.get("VELOCITY LIMIT"), actuatorParams.get("INITIAL"), actuatorParams.get("VALUE MIN"), actuatorParams.get("MAX"), actuatorParams.get("JERK LIMIT"), sensors);
-            parserHelper.getSymbolTableActuator().add(actuatorId, prototype);
-        } else {
-            //Create non-prototype actuator by type and place into symbol table
-            if (actuatorType.equalsIgnoreCase("linear")) {
-                ActuatorLinear actuator = new ActuatorLinear(sensors, actuatorId, groups);
-                parserHelper.getSymbolTableActuator().add(actuatorId, actuator);
-            } else if (actuatorType.equalsIgnoreCase("rotary")) {
-                ActuatorRotary actuator = new ActuatorRotary(sensors, actuatorId, groups);
-                parserHelper.getSymbolTableActuator().add(actuatorId, actuator);
-            } else {
-                throw new ParseException("Invalid actuator type");
-            }
-        }
-    }    }
 }
