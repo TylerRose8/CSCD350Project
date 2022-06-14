@@ -91,12 +91,17 @@ public class ParseSensor {
 
         MySensor mySensor;
         Scanner creatorScanner = new Scanner(input);
-        System.out.println("set if");
         if (creatorScanner.next().equalsIgnoreCase("SET")){
             idOne = Identifier.make(argslist[2]);
-            System.out.println("1st if");
+
+            //System.out.println("1st if");
             mySensor = new MySensor(idOne);
-            creatorScanner.next();
+            //MySensor mySensor1 = mySensor;
+
+            String valueString = argslist[4];
+            int valueSet = Integer.parseInt(valueString);
+            mySensor.setValue(valueSet);
+            /*creatorScanner.next();
             creatorScanner.next();
             creatorScanner.next();
             if (creatorScanner.hasNextDouble()){
@@ -104,13 +109,14 @@ public class ParseSensor {
                 value = creatorScanner.nextDouble();
                 mySensor.setValue(value);
 
-            }
+            }*/
         }if (creatorScanner.next().equalsIgnoreCase("GET")) {
             creatorScanner.next();
             idOne = Identifier.make(argslist[2]);
             creatorScanner.next();
             mySensor = new MySensor(idOne);
             mySensor.getValue();
+            System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValue());
         }else {
 
             switch (type) {
