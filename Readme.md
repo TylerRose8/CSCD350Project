@@ -25,3 +25,6 @@ It has had testing via Startup.java, but JUnit tests need to be written for Mapp
 This branch has the @ commands added all of Part 1 should work now.<br>
 Added new jar, modified the startup.java with the emailed changes.<br>
 Part 2 works now, need to start testing<br>
+Network Command has been added and it works with the example commands given in the assignment doc. Tested it via Startup.java
+
+Will start looking into using junit tests

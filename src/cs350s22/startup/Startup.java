@@ -27,13 +27,14 @@ public class Startup
       // run your tests like this
       startup.parse("@exit");
    }
-
+   
    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    private void parse(final String parse) throws Exception
    {
       System.out.println("PARSE> "+ parse);
-
-      //Parser parser = new Parser(_parserHelper, parse);
-
-      _parserHelper.schedule(parse);   }
+      
+      Parser parser = new Parser(_parserHelper, parse);
+      
+      parser.parse();
+   }
 }
