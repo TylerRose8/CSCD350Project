@@ -20,8 +20,8 @@ class ParseMapperTest {
         String testName = "Mapper";
         fileOut = new File(testName+"TestLog.txt");
         fileErr = new File(testName+"TestErrors.txt");
-        writerOut = new FileWriter(fileOut);
-        writerErr = new FileWriter(fileErr);
+        writerOut = new FileWriter(fileOut,true);
+        writerErr = new FileWriter(fileErr, true);
     }
 
     @BeforeEach
@@ -54,6 +54,8 @@ class ParseMapperTest {
         defaultErr = System.err;
         System.setOut(out);
         System.setErr(err);
+        System.out.println("Next Test");
+        System.out.println("==========================================================");
     }
 
     @AfterEach
