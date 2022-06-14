@@ -32,9 +32,9 @@ public class Startup
    private void parse(final String parse) throws Exception
    {
       System.out.println("PARSE> "+ parse);
-      
-      Parser parser = new Parser(_parserHelper, parse);
-      
-      parser.parse();
-   }
+
+      //Parser parser = new Parser(_parserHelper, parse);
+
+      _parserHelper.schedule(parse);
+}
 }
