@@ -4,6 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cs350s22.component.ui.parser.A_ParserHelper;
+import cs350s22.component.ui.parser.ParserHelper;
+
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,5 +69,8 @@ class ParseMapperTest {
 
     @Test
     void parseMapperCommand() {
+    	final A_ParserHelper _parserHelper = new ParserHelper();
+		_parserHelper.schedule("@RUN mapperCommands.txt");
+		_parserHelper.schedule("@exit");
     }
 }
