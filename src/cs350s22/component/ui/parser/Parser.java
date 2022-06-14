@@ -15,6 +15,7 @@ public class Parser implements ParserConstants {
         String[] command = input.split(" ");
         if (command[0].contains("@")) {
             ParseMeta.parseMetaCommand(parserHelper, command);
+            //Can't figure out @configure, javadoc is unfinished.
         } else {
             String type = command[1].toUpperCase();
             switch (type) {

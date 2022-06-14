@@ -8,6 +8,7 @@ Ryan:<br>
 C - mapper, 4 commands - IMPLEMENTED - NEEDS TESTING <br>
 E - 1-6 + PART 2 are IMPLEMENTED - NEEDS TESTING <br>
 F - network commands - IMPLEMENTED - NEEDS TESTING<br>
+The Mapper commands are done unless a bug is found in testing.
 
 
 Tyler:<br>
@@ -20,3 +21,4 @@ Spencer:<br>
 H - Sensor, 1 commands<br>
 I - Watchdog command - 3 commands<br>
 
+It has had testing via Startup.java, but JUnit tests need to be written for Mapper.
