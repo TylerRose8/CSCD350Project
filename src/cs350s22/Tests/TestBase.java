@@ -23,7 +23,7 @@ class TestBase {
         writerOut = new FileWriter(fileOut,true);
         writerErr = new FileWriter(fileErr, true);
         writerOut.write("Running tests for: " + testName);
-        writerOut.write("==========================================================");
+        writerOut.write("\n==========================================================");
     }
 
     TestBase(String testName) throws IOException {;
@@ -32,7 +32,7 @@ class TestBase {
         writerOut = new FileWriter(fileOut,true);
         writerErr = new FileWriter(fileErr, true);
         writerOut.write("Running tests for: " + testName);
-        writerOut.write("==========================================================");
+        writerOut.write("\n==========================================================");
     }
 
     @BeforeEach
@@ -44,6 +44,7 @@ class TestBase {
             {
                 try {
                     writerOut.write(b);
+                    writerOut.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -56,6 +57,7 @@ class TestBase {
             {
                 try {
                     writerErr.write(b);
+                    writerOut.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -70,8 +72,10 @@ class TestBase {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws IOException {
         System.setOut(defaultOut);
         System.setErr(defaultErr);
+        writerOut.close();
+        writerErr.close();
     }
 }
