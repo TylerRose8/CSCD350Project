@@ -24,9 +24,14 @@ public class ParseActuator {
         Identifier actuatorId = Identifier.make(commandSplit[3]);
 
         //Find the groups to put the actuator in
-        int groupsLastIndex = command.toUpperCase().indexOf("SENSOR") - 1 == -1 ? command.toUpperCase().indexOf("ACCELERATION") - 1 : command.toUpperCase().indexOf("SENSOR") - 1;
-        String groupParams = command.substring(command.toUpperCase().indexOf("GROUP") + 5, groupsLastIndex);
-        List<Identifier> groups = Identifier.makeList(groupParams.split(" "));
+        List<Identifier> groups = Parser.getSetOfIds(command,"GROUP", "SENSOR", "ACCELERATION");
+
+        //Find the sensor ids
+        List<Identifier> sensorIds = Parser.getSetOfIds(command, "SENSOR", "ACCELERATION");
+        List<A_Sensor> sensors = new ArrayList<>();
+        for(Identifier sensor : sensorIds){
+            sensors.add(parserHelper.getSymbolTableSensor().get(sensor));
+        }
 
         //Get all numeric parameters of the actuator
         String valueParams = command.substring(command.toUpperCase().indexOf("ACCELERATION") + 13);
@@ -49,16 +54,7 @@ public class ParseActuator {
             }
         }
 
-        //Find the sensors to put the actuator and put it in symbol table
-        int sensorsLastIndex = command.toUpperCase().indexOf("ACCELERATION") - 1 == -1 ? -1 : command.toUpperCase().indexOf("ACCELERATION") - 1;
-        List<A_Sensor> sensors = new ArrayList<>();
-        if (sensorsLastIndex == -1) {
-            String sensorParams = command.substring(command.toUpperCase().indexOf("SENSOR") + 6);
-            String[] sensorIdArray = sensorParams.split(" ");
-            for (String sensorId : sensorIdArray) {
-                SymbolTable<A_Sensor> sensorTable = parserHelper.getSymbolTableSensor();
-                sensors.add(sensorTable.get(Identifier.make(sensorId)));
-            }
+        if(!sensors.isEmpty()){
             ActuatorPrototype prototype = new ActuatorPrototype(actuatorId, groups, actuatorParams.get("LEADIN"), actuatorParams.get("LEADOUT"), actuatorParams.get("RELAX"), actuatorParams.get("VELOCITY LIMIT"), actuatorParams.get("INITIAL"), actuatorParams.get("VALUE MIN"), actuatorParams.get("MAX"), actuatorParams.get("JERK LIMIT"), sensors);
             parserHelper.getSymbolTableActuator().add(actuatorId, prototype);
         } else {
