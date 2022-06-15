@@ -43,15 +43,17 @@ public class ParseSensor {
         //identifier = Identifier.make(argslist[2]);
         //Scanner scanner = new Scanner(input);
         //String commandText = scanner.next();
-        String type = argslist[2].toUpperCase();
+        //String type = argslist[2].toUpperCase();
+
         //String id = argslist[3];
 
         
         for (int i = 0; i < argslist.length; i++) {
         	String type1 = argslist[i].toUpperCase();
         	switch (type1) {
+
              	case "GROUP":
-	        		i++;
+        		i++;
 	                idOne = Identifier.make(argslist[i]);
 	                identifierList.add(idOne);
 	        		break;
@@ -73,7 +75,7 @@ public class ParseSensor {
 	        	case "GET":
 	        		idOne = Identifier.make(argslist[2]);
 	                mySensor = new MySensor(idOne);
-	                System.out.println("The value of "+ mySensor.getID() +" is "+ mySensor.getValue());
+	                System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValue());
 	        		break;
 	        	case "SET":
 	        		idOne = Identifier.make(argslist[2]);
@@ -112,7 +114,6 @@ public class ParseSensor {
 	        parserHelper.getSymbolTableSensor().add(mySensor.getID(), mySensor);
 			break;
     	}
-
 
     }
 
