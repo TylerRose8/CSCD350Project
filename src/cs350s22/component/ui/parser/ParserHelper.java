@@ -47,7 +47,7 @@ public class ParserHelper extends A_ParserHelper {
         }
         for (String endKeyWord : endKeyWords) {
             if (command.toUpperCase().contains(endKeyWord.toUpperCase())) {
-                return getSetOfIds(command, startKeyWord);
+                return getSetOfIds(command, startKeyWord, endKeyWord);
             }
         }
         return getSetOfIds(command, startKeyWord);
