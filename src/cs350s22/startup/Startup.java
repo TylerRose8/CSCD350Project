@@ -30,18 +30,20 @@ public class Startup
       startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
       startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");
       startup.parse("GET SENSOR mySensor1 VALUE");
-      
+      startup.parse("SET SENSOR mySensor1 VALUE 10");
+      startup.parse("GET SENSOR mySensor1 VALUE");
+
       //test C.2: SCALED
       
-      startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
+    /*  startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
       startup.parse("CREATE SENSOR POSITION mySensor2 MAPPER myMapper2");
-      startup.parse("GET SENSOR mySensor2 VALUE");
+      startup.parse("GET SENSOR mySensor2 VALUE");*/
       
       //test C.3: NORMALIZED
       
-      startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
+    /*  startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
       startup.parse("CREATE SENSOR POSITION mySensor3 MAPPER myMapper3");
-      startup.parse("GET SENSOR mySensor3 VALUE");
+      startup.parse("GET SENSOR mySensor3 VALUE");*/
       
       // run your tests like this
       startup.parse("@exit");
