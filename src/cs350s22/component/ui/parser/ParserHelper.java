@@ -12,6 +12,17 @@ public class ParserHelper extends A_ParserHelper {
         System.out.println("Welcome to your ParserHelper");
     }
 
+    private ArrayList<Identifier> getSetOfIds(String command, String startKeyWord){
+
+        String[] items = command.split(startKeyWord);
+        items = items[1].trim().split(" ");
+        ArrayList<Identifier> ids = new ArrayList<>();
+        for (String item : items) {
+            ids.add(Identifier.make(item));
+        }
+        return ids;
+    }
+
     private ArrayList<Identifier> getSetOfIds(String command, String startKeyWord, String endKeyWord){
         ArrayList<Identifier> ids = new ArrayList<>();
         if(!command.toUpperCase().contains(startKeyWord.toUpperCase())){
@@ -29,14 +40,16 @@ public class ParserHelper extends A_ParserHelper {
         return ids;
     }
 
-    private ArrayList<Identifier> getSetOfIds(String command, String startKeyWord){
-
-        String[] items = command.split(startKeyWord);
-        items = items[1].trim().split(" ");
+    private ArrayList<Identifier> getSetOfIds(String command, String startKeyWord, String... endKeyWords) {
         ArrayList<Identifier> ids = new ArrayList<>();
-        for (String item : items) {
-            ids.add(Identifier.make(item));
+        if (!command.toUpperCase().contains(startKeyWord.toUpperCase())) {
+            return ids;
         }
-        return ids;
+        for (String endKeyWord : endKeyWords) {
+            if (command.toUpperCase().contains(endKeyWord.toUpperCase())) {
+                return getSetOfIds(command, startKeyWord);
+            }
+        }
+        return getSetOfIds(command, startKeyWord);
     }
 }
