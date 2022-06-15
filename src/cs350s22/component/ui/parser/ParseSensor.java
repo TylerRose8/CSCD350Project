@@ -20,7 +20,7 @@ public class ParseSensor {
     public static void parseSensorCommand(A_ParserHelper parserHelper, String input) throws IOException, ParseException {
 
         String[] argslist = input.split(" ");
-        MySensor mySensor;
+        A_Sensor mySensor;
         A_Mapper mapper = null;
         Identifier identifier = Identifier.make(argslist[3]);
         Identifier idOne;
@@ -43,38 +43,17 @@ public class ParseSensor {
         //identifier = Identifier.make(argslist[2]);
         //Scanner scanner = new Scanner(input);
         //String commandText = scanner.next();
-        //String type = argslist[2].toUpperCase();
+        String type = argslist[2].toUpperCase();
+
         //String id = argslist[3];
 
         
         for (int i = 0; i < argslist.length; i++) {
         	String type1 = argslist[i].toUpperCase();
         	switch (type1) {
-        		case "SPEED":
-        			if (mapper == null) {
-                        mySensor = new MySensor(identifier, identifierList, repoList, watchdogList);
 
-                    } else if (identifierList.size() == 0 && repoList.size() == 0 && watchdogList.size() == 0) {
-                        mySensor = new MySensor(identifier);
-                    } else {
-                        mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
-                    }
-                    parserHelper.getSymbolTableSensor().add(mySensor.getID(), mySensor);
-        			break;
-        		case "POSITION":
-        			if (mapper == null) {
-                        mySensor = new MySensor(identifier, identifierList, repoList, watchdogList);
-
-                    } else if (identifierList.size() == 0 && repoList.size() == 0 && watchdogList.size() == 0) {
-                        mySensor = new MySensor(identifier);
-
-                    } else {
-                        mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
-                    }
-                    parserHelper.getSymbolTableSensor().add(mySensor.getID(), mySensor);
-        			break;
-	        	case "GROUP":
-	        		i++;
+             	case "GROUP":
+        		i++;
 	                idOne = Identifier.make(argslist[i]);
 	                identifierList.add(idOne);
 	        		break;
@@ -95,13 +74,13 @@ public class ParseSensor {
 	        		break;
 	        	case "GET":
 	        		idOne = Identifier.make(argslist[2]);
-	                mySensor = new MySensor(idOne);
-	                System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValue());
+	                mySensor = parserHelper.getSymbolTableSensor().get(idOne);
+	                System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValueRaw());
 	        		break;
 	        	case "SET":
 	        		idOne = Identifier.make(argslist[2]);
 
-	                mySensor = new MySensor(idOne);
+	                mySensor = parserHelper.getSymbolTableSensor().get(idOne);
 
 	                String valueString = argslist[4];
 	                int valueSet = Integer.parseInt(valueString);
@@ -109,6 +88,42 @@ public class ParseSensor {
 	        		break;
         	}
         }
+        
+    switch(type){
+	    case "SPEED":
+			if (mapper == null) {
+	            mySensor = new MySensor(identifier, identifierList, repoList, watchdogList);
+	
+	        } else if (identifierList.size() == 0 && repoList.size() == 0 && watchdogList.size() == 0) {
+	            mySensor = new MySensor(identifier);
+	        } else {
+	            mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
+	        }
+			if(mapper != null) {
+				mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
+			}
+	        SymbolTable<A_Sensor> symSensor = parserHelper.getSymbolTableSensor();
+	        symSensor.add(mySensor.getID(), mySensor);
+			break;
+		case "POSITION":
+			if (mapper == null) {
+	            mySensor = new MySensor(identifier, identifierList, repoList, watchdogList);
+	
+	        } else if (identifierList.size() == 0 && repoList.size() == 0 && watchdogList.size() == 0) {
+	            mySensor = new MySensor(identifier);
+	
+	        } else {
+	            mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
+	        }
+			if(mapper != null) {
+				mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
+				//mySensor.setValue(1.0);
+			}
+	        SymbolTable<A_Sensor> symSensor1 = parserHelper.getSymbolTableSensor();
+	        symSensor1.add(mySensor.getID(), mySensor);
+	        symSensor1.contains(mySensor.getID());
+	        break;
+    	}
 
     }
 
