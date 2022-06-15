@@ -81,7 +81,7 @@ public class ParseSensor {
 	        		idOne = Identifier.make(argslist[2]);
 
 	                mySensor = parserHelper.getSymbolTableSensor().get(idOne);
-	                mySensor.registerController(parserHelper.getControllerMaster());
+	                //mySensor.registerController(parserHelper.getControllerMaster());
 	                String valueString = argslist[4];
 	                int valueSet = Integer.parseInt(valueString);
 	                mySensor.setValue(valueSet);
