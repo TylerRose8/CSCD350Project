@@ -27,8 +27,6 @@ public class Startup
       startup.parse("@CONFIGURE LOG \"a.txt\" DOT SEQUENCE \"b.txt\" NETWORK \"c.txt\" XML \"d.txt\"");
       
       //test C.1: PASSTHROUGH
-      startup.parse("CREATE ACTUATOR LINEAR myActuator5 ACCELERATION LEADIN 0.1 LEADOUT -0.2 RELAX 0.3 VELOCITY LIMIT 5 VALUE MIN 1 MAX 10 INITIAL 2 JERK LIMIT 3");
-      
       startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
       startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");
       startup.parse("GET SENSOR mySensor1 VALUE");
