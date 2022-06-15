@@ -43,7 +43,7 @@ public class ParseSensor {
         //identifier = Identifier.make(argslist[2]);
         //Scanner scanner = new Scanner(input);
         //String commandText = scanner.next();
-        //String type = argslist[2].toUpperCase();
+        String type = argslist[2].toUpperCase();
 
         //String id = argslist[3];
 
