@@ -4,6 +4,7 @@ import cs350s22.component.logger.LoggerActuator;
 import cs350s22.component.ui.parser.A_ParserHelper;
 import cs350s22.component.ui.parser.Parser;
 import cs350s22.component.ui.parser.ParserHelper;
+import cs350s22.support.Filespec;
 
 //=================================================================================================================================================================================
 public class Startup
@@ -14,6 +15,7 @@ public class Startup
    public Startup()
    {
       System.out.println("Welcome to your Startup class");
+      LoggerActuator.initialize(Filespec.make("out.txt"));
    }
 
    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,6 +25,25 @@ public class Startup
       
       // this command must come first. The filenames do not matter here
       startup.parse("@CONFIGURE LOG \"a.txt\" DOT SEQUENCE \"b.txt\" NETWORK \"c.txt\" XML \"d.txt\"");
+      
+      //test C.1: PASSTHROUGH
+      startup.parse("CREATE ACTUATOR LINEAR myActuator5 ACCELERATION LEADIN 0.1 LEADOUT -0.2 RELAX 0.3 VELOCITY LIMIT 5 VALUE MIN 1 MAX 10 INITIAL 2 JERK LIMIT 3");
+      
+      startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
+      startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");
+      startup.parse("GET SENSOR mySensor1 VALUE");
+      
+      //test C.2: SCALED
+      
+      startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
+      startup.parse("CREATE SENSOR POSITION mySensor2 MAPPER myMapper2");
+      startup.parse("GET SENSOR mySensor2 VALUE");
+      
+      //test C.3: NORMALIZED
+      
+      startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
+      startup.parse("CREATE SENSOR POSITION mySensor3 MAPPER myMapper3");
+      startup.parse("GET SENSOR mySensor3 VALUE");
       
       // run your tests like this
       startup.parse("@exit");
