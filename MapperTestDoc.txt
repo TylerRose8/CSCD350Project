@@ -1,0 +1,213 @@
+﻿
+Test C.1: Passthrough Mapper
+
+1. The rationale behind the test; i.e., what is it testing and why we care.
+
+This is testing the creation of a passthrough mapper and assigning it to a position sensor, and then getting it’s value.
+We care about this because it shows that the passthrough mapper creation is working and that it gets assigned to a sensor.
+
+2. A general English description of the initial conditions of the test.
+
+The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+
+3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
+
+CREATE MAPPER myMapper EQUATION PASSTHROUGH
+CREATE ACTUATOR LINEAR myActuator1 ACCELERATION LEADIN 0.1 LEADOUT -0.2 RELAX 0.3 VELOCITY LIMIT 5 VALUE MIN 1 MAX 10 INITIAL 2 JERK LIMIT 3
+CREATE ACTUATOR LINEAR myActuator2 ACCELERATION LEADIN 0.1 LEADOUT -0.2 RELAX 0.3 VELOCITY LIMIT 5 VALUE MIN 1 MAX 10 INITIAL 2 JERK LIMIT 3
+CREATE REPORTER CHANGE myReporter1 NOTIFY IDS myActuator1 myActuator2 DELTA 3
+CREATE SENSOR POSITION mySensor1 GROUP myGroup1 REPORTERS myReporter1 MAPPER myMapper
+GET SENSOR mySensor1 VALUE
+
+4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
+
+The expected results are for the GET SENSOR command to retrieve the raw value of the sensor so that we can see if it is properly mapped
+
+5. At least one representation of the actual results. The form is your choice.
+Welcome to your ParserHelper
+Welcome to your Startup class
+PARSE> @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+SCHEDULE | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+PARSE> CREATE MAPPER myMapper EQUATION PASSTHROUGH
+SCHEDULE | CREATE MAPPER myMapper EQUATION PASSTHROUGH
+PARSE> CREATE SENSOR POSITION mySensor1 MAPPER myMapper
+SCHEDULE | CREATE SENSOR POSITION mySensor1 MAPPER myMapper
+PARSE> GET SENSOR mySensor1 VALUE
+SCHEDULE | GET SENSOR mySensor1 VALUE
+PARSE> @exit
+SCHEDULE | @exit
+TIME     | 0.02
+EXECUTE  | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+EXECUTE  | CREATE MAPPER myMapper EQUATION PASSTHROUGH
+EXECUTE  | CREATE SENSOR POSITION mySensor1 MAPPER myMapper
+EXECUTE  | GET SENSOR mySensor1 VALUE
+The value of Identifier{name=mySensor1} is 0.0
+EXECUTE  | @exit
+EXITING  |
+
+
+6. A brief discussion on how the actual results differ from the expected results.
+
+The value started at 0 and ended at 0. So the passthrough mapper did nothing as it was supposed to.
+
+7. A suggestion for how to extend this test to cover related aspects not required here
+
+Reporter or Watchdog could be added in to further test how mapper alters the value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Task C.2: Scaled Mapper
+
+1. The rationale behind the test; i.e., what is it testing and why we care.
+
+This is testing the creation of a scaled mapper and assigning it to a position sensor, and then getting it’s value.
+We care about this because it shows that the scaled mapper creation is working and that it gets assigned to a sensor.
+
+2. A general English description of the initial conditions of the test.
+
+The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+
+3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
+
+CREATE MAPPER myMapper2 EQUATION SCALE 10
+CREATE SENSOR POSITION mySensor2 MAPPER myMapper2
+GET SENSOR mySensor2 VALUE
+
+
+4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
+
+The expected results are for the GET SENSOR command to retrieve the raw value of the sensor so that we can see if it is properly mapped by seeing if that value was altered.
+
+5. At least one representation of the actual results. The form is your choice.
+Welcome to your ParserHelper
+Welcome to your Startup class
+PARSE> @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+SCHEDULE | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+PARSE> CREATE MAPPER myMapper2 EQUATION SCALE 10
+SCHEDULE | CREATE MAPPER myMapper2 EQUATION SCALE 10
+PARSE> CREATE SENSOR POSITION mySensor2 MAPPER myMapper2
+SCHEDULE | CREATE SENSOR POSITION mySensor2 MAPPER myMapper2
+PARSE> GET SENSOR mySensor2 VALUE
+SCHEDULE | GET SENSOR mySensor2 VALUE
+PARSE> @exit
+SCHEDULE | @exit
+TIME     | 0.02
+EXECUTE  | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+EXECUTE  | CREATE MAPPER myMapper2 EQUATION SCALE 10
+EXECUTE  | CREATE SENSOR POSITION mySensor2 MAPPER myMapper2
+EXECUTE  | GET SENSOR mySensor2 VALUE
+The value of Identifier{name=mySensor2} is 0.0
+EXECUTE  | @exit
+EXITING  |
+
+
+
+6. A brief discussion on how the actual results differ from the expected results.
+
+The value of Sensor started at 0, so when scaled that is multiplied by the value of the mapper it went unchanged as 0*anything is 0.
+
+7. A suggestion for how to extend this test to cover related aspects not required here
+
+Reporter or Watchdog could be added in to further test how mapper alters the value.
+
+Task C.3: Normalized Mapper
+
+1. The rationale behind the test; i.e., what is it testing and why we care.
+
+This is testing the creation of a normalized mapper and assigning it to a position sensor, and then getting it’s value.
+We care about this because it shows that the normalized mapper creation is working and that it gets assigned to a sensor.
+
+2. A general English description of the initial conditions of the test.
+
+The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+
+3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
+
+CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20
+CREATE SENSOR POSITION mySensor3 MAPPER myMapper2
+GET SENSOR mySensor3 VALUE
+
+4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
+
+The expected results are for the GET SENSOR command to retrieve the raw value of the sensor so that we can see if it is properly mapped by seeing if the raw value was altered.
+
+
+5. At least one representation of the actual results. The form is your choice.
+
+Welcome to your ParserHelper
+Welcome to your Startup class
+PARSE> @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+SCHEDULE | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+PARSE> CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20
+SCHEDULE | CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20
+PARSE> CREATE SENSOR POSITION mySensor3 MAPPER myMapper3
+SCHEDULE | CREATE SENSOR POSITION mySensor3 MAPPER myMapper3
+PARSE> GET SENSOR mySensor3 VALUE
+SCHEDULE | GET SENSOR mySensor3 VALUE
+PARSE> @exit
+SCHEDULE | @exit
+TIME     | 0.02
+EXECUTE  | @CONFIGURE LOG "a.txt" DOT SEQUENCE "b.txt" NETWORK "c.txt" XML "d.txt"
+EXECUTE  | CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20
+EXECUTE  | CREATE SENSOR POSITION mySensor3 MAPPER myMapper3
+EXECUTE  | GET SENSOR mySensor3 VALUE
+The value of Identifier{name=mySensor3} is 0.0
+EXECUTE  | @exit
+EXITING  |
+
+
+6. A brief discussion on how the actual results differ from the expected results.
+
+The actual results is that the value is 0, and the value started at 0. So since 0 was what it was at the start when applied to a percentage it will remain 0. So it worked.
+
+7. A suggestion for how to extend this test to cover related aspects not required here.
+
+Reporter or Watchdog could be added in to further test how mapper alters the value
+
+
