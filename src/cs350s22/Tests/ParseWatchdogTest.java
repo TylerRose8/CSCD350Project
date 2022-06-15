@@ -15,9 +15,9 @@ class ParseWatchdogTest extends TestBase {
     }
 
     @Test
-    void parseMapperCommand() {
+    void parseWatchdogCommand() {
     	final A_ParserHelper _parserHelper = new ParserHelper();
-		_parserHelper.schedule("@RUN mapperCommands.txt");
+		_parserHelper.schedule("@RUN watchdogCommands.txt");
 		_parserHelper.schedule("@exit");
     }
 }
