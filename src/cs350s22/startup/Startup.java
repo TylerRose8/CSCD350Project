@@ -27,23 +27,29 @@ public class Startup
       startup.parse("@CONFIGURE LOG \"a.txt\" DOT SEQUENCE \"b.txt\" NETWORK \"c.txt\" XML \"d.txt\"");
       
       //test C.1: PASSTHROUGH
-      startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
+      /*startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
       startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");
       startup.parse("GET SENSOR mySensor1 VALUE");
       startup.parse("SET SENSOR mySensor1 VALUE 10");
-      startup.parse("GET SENSOR mySensor1 VALUE");
+      startup.parse("GET SENSOR mySensor1 VALUE");*/
 
       //test C.2: SCALED
       
-    /*  startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
+      startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
       startup.parse("CREATE SENSOR POSITION mySensor2 MAPPER myMapper2");
-      startup.parse("GET SENSOR mySensor2 VALUE");*/
+      startup.parse("CREATE CONTROLLER FORWARDING myController1 WITH COMPONENTS mySensor2");
+      startup.parse("GET SENSOR mySensor2 VALUE");
+      startup.parse("SET SENSOR mySensor2 VALUE 1");
+      startup.parse("GET SENSOR mySensor2 VALUE");
       
       //test C.3: NORMALIZED
       
-    /*  startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
+      startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
       startup.parse("CREATE SENSOR POSITION mySensor3 MAPPER myMapper3");
-      startup.parse("GET SENSOR mySensor3 VALUE");*/
+      startup.parse("CREATE CONTROLLER FORWARDING myController2 WITH COMPONENTS mySensor3");
+      startup.parse("GET SENSOR mySensor3 VALUE");
+      startup.parse("SET SENSOR mySensor3 VALUE 15");
+      startup.parse("GET SENSOR mySensor3 VALUE");
       
       // run your tests like this
       startup.parse("@exit");

@@ -75,13 +75,13 @@ public class ParseSensor {
 	        	case "GET":
 	        		idOne = Identifier.make(argslist[2]);
 	                mySensor = parserHelper.getSymbolTableSensor().get(idOne);
-	                System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValueRaw());
+	                System.out.println("The value of "+mySensor.getID() +" is "+ mySensor.getValue());
 	        		break;
 	        	case "SET":
 	        		idOne = Identifier.make(argslist[2]);
 
 	                mySensor = parserHelper.getSymbolTableSensor().get(idOne);
-	                mySensor.registerController(parserHelper.getControllerMaster());
+	                //mySensor.registerController(parserHelper.getControllerMaster());
 	                String valueString = argslist[4];
 	                int valueSet = Integer.parseInt(valueString);
 	                mySensor.setValue(valueSet);
@@ -117,7 +117,6 @@ public class ParseSensor {
 	        }
 			if(mapper != null) {
 				mySensor = new MySensor(identifier, identifierList, repoList, watchdogList, mapper);
-				//mySensor.setValue(1.0);
 			}
 	        SymbolTable<A_Sensor> symSensor1 = parserHelper.getSymbolTableSensor();
 	        symSensor1.add(mySensor.getID(), mySensor);
