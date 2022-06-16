@@ -46,7 +46,7 @@ public class ParseMeta {
 					Filespec filepathTwo = Filespec.make(command[i]);
 					Filespec filepathThree = null;
 					i++;
-					if(command[i].toUpperCase().equals("NETWORK")) {
+					if(command[i].equalsIgnoreCase("NETWORK")) {
 						i++;
 						filepathThree = Filespec.make(command[i]);
 					}
@@ -72,10 +72,10 @@ public class ParseMeta {
 				switch(type) {
 				case "WAIT":
 					valDouble = Double.parseDouble(command[3]);
-					if(command[2].toUpperCase().equals("FOR")) {
+					if(command[2].equalsIgnoreCase("FOR")) {
 							clock.waitFor(valDouble);
 					}
-					else if(command[2].toUpperCase().equals("UNTIL")) {
+					else if(command[2].equalsIgnoreCase("UNTIL")) {
 							clock.waitUntil(valDouble);
 					}
 					break;
@@ -96,7 +96,7 @@ public class ParseMeta {
 					}
 					break;
 				case "SET":
-					if(command[2].toUpperCase().equals("RATE")) {
+					if(command[2].equalsIgnoreCase("RATE")) {
 						value = command[3];
 						val = Integer.parseInt(value);
 						clock.setRate(val);

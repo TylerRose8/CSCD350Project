@@ -1,7 +1,4 @@
 package cs350s22.component.ui.parser;
-
-import static org.junit.Assert.assertArrayEquals;
-
 import java.util.ArrayList;
 
 import cs350s22.component.A_Component;
@@ -35,15 +32,15 @@ public class ParseController {
 
 
         	for(int i = 0; i < command.length; i++) {
-        		if(command[i].toUpperCase().equals("GROUPS")) {
+        		if(command[i].equalsIgnoreCase("GROUPS")) {
         			i++;
-        			while((!command[i].toUpperCase().equals("DEPENDENCY")) || (!command[i].toUpperCase().equals("WITH"))) {
+        			while((!command[i].equalsIgnoreCase("DEPENDENCY")) || (!command[i].equalsIgnoreCase("WITH"))) {
         				groupString = command[i];
         				groupId = Identifier.make(groupString);
         				groupList.add(groupId);
         			}
         		}
-        		if(command[i].toUpperCase().equals("SEQUENCER")) {
+        		if(command[i].equalsIgnoreCase("SEQUENCER")) {
         			i++;
         			seq = command[i];
         			A_Expression exp = null;
@@ -53,9 +50,9 @@ public class ParseController {
         			seqList.add(seqAct);
         			ds = new DependencySequencer(seqList);
         		}
-        			if(command[i].toUpperCase().equals("WITH")) {
+        			if(command[i].equalsIgnoreCase("WITH")) {
         				i++;
-        				if(command[i].toUpperCase().equals("COMPONENT")) {
+        				if(command[i].equalsIgnoreCase("COMPONENT")) {
         					i++;
         					comp = command[i];
         					compID = Identifier.make(comp);
@@ -72,7 +69,7 @@ public class ParseController {
         						comps.add(sensor);
         					}
         				}
-        				else if(command[i].toUpperCase().equals("COMPONENTS")) {
+        				else if(command[i].equalsIgnoreCase("COMPONENTS")) {
         					for(; i < command.length; i++) {
         						i++;
             					comp = command[i];
@@ -94,7 +91,7 @@ public class ParseController {
         		}
         	
        	}
-        	if(command[2].toUpperCase().equals("FORWARDING")) {
+        	if(command[2].equalsIgnoreCase("FORWARDING")) {
         		if(groupIndex == 0 && ds == null) {
         			 controller = new MyControllerSlaveForwarding(controllerID);
         		}
@@ -111,7 +108,7 @@ public class ParseController {
         			controller.addComponents(comps);
         		}
         	}
-        	if(command[2].toUpperCase().equals("NONFORWARDING")) {
+        	if(command[2].equalsIgnoreCase("NONFORWARDING")) {
         		if(groupIndex == 0 && ds == null) {
         			 controller = new MyControllerSlaveNonforwarding(controllerID);
         		}

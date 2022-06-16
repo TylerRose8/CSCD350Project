@@ -25,12 +25,18 @@ public class ParseActuator {
 
         //Find the groups to put the actuator in
         List<Identifier> groups = Parser.getSetOfIds(command,"GROUP", "SENSOR", "ACCELERATION");
+        for (Identifier group : groups) {
+            System.out.println("Grouping " + actuatorId + " into " + group);
+        }
 
         //Find the sensor ids
         List<Identifier> sensorIds = Parser.getSetOfIds(command, "SENSOR", "ACCELERATION");
         List<A_Sensor> sensors = new ArrayList<>();
-        for(Identifier sensor : sensorIds){
-            sensors.add(parserHelper.getSymbolTableSensor().get(sensor));
+        if(!sensorIds.isEmpty()) {
+            for (Identifier sensor : sensorIds) {
+                System.out.println("Adding " + sensor);
+                sensors.add(parserHelper.getSymbolTableSensor().get(sensor));
+            }
         }
 
         //Get all numeric parameters of the actuator
