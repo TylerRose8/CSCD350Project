@@ -3,12 +3,12 @@ Test C.1: Passthrough Mapper
 
 1. The rationale behind the test; i.e., what is it testing and why we care.
 
-This is testing the creation of a passthrough mapper and assigning it to a position sensor, and then getting it’s value.
-We care about this because it shows that the passthrough mapper creation is working and that it gets assigned to a sensor.
+Answer: 	This is testing the creation of a passthrough mapper and assigning it to a position 			sensor, and then getting it’s value.
+		We care about this because it shows that the passthrough mapper creation is 				working and that it gets assigned to a sensor.
 
 2. A general English description of the initial conditions of the test.
 
-The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+Answer: 	The initial conditions are that there is no mapper, no sensor, no actuators, and no 			reporters. The mapper must be made before the sensor, the actuators need to be made 			before the reporter, and the reporter needs to be made before the sensor.
 
 3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
 
@@ -24,7 +24,7 @@ GET SENSOR mySensor1 VALUE
 
 4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
 
-The expected results are for the GET SENSOR command to retrieve the value of the sensor and output it to the screen once before we set the value to see what the default is and once after to see how the mapper changed it, if it did. The expected result from passthrough is that the mapper doesn’t change the value at all so the value should be 0 at first, then 10 after it gets set.
+Answer: 	The expected results are for the GET SENSOR command to retrieve the value of the sensor and 		output it to the screen once before we set the value to see what the default is and once after to 		see how the mapper changed it, if it did. The expected result from passthrough is that the 			mapper doesn’t change the value at all so the value should be 0 at first, then 10 after it gets set.
 
 5. At least one representation of the actual results. The form is your choice.
 
@@ -62,11 +62,12 @@ EXITING  |
 
 6. A brief discussion on how the actual results differ from the expected results.
 
-The value was not affected by the mapper at all, which is expected as the passthrough mapper wasn’t supposed to change the value.
+Answer: 	The value was not affected by the mapper at all, which is expected as the 					passthrough mapper wasn’t supposed to change the value.
 
 7. A suggestion for how to extend this test to cover related aspects not required here
 
-Reporter or Watchdog could be added in to further test how mapper alters the value.
+Answer: 	Reporter or Watchdog could be added in to further test how mapper alters the value.
+
 
 
 
@@ -107,12 +108,11 @@ Task C.2: Scaled Mapper
 
 1. The rationale behind the test; i.e., what is it testing and why we care.
 
-This is testing the creation of a scaled mapper and assigning it to a position sensor, and then getting it’s value.
-We care about this because it shows that the scaled mapper creation is working and that it gets assigned to a sensor.
+Answer: 	This is testing the creation of a scaled mapper and assigning it to a position sensor, and then 		getting it’s value. We care about this because it shows that the scaled mapper creation is working 		and that it gets assigned to a sensor.
 
 2. A general English description of the initial conditions of the test.
 
-The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+Answer: 	The initial conditions are that there is no mapper, no sensor, no actuators, and no  reporters. 		The mapper must be made before the sensor, the actuators need to be made before the reporter, 		and the reporter needs to be made before the sensor.
 
 3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
 
@@ -127,7 +127,7 @@ GET SENSOR mySensor2 VALUE
 
 4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
 
-The expected results are for the GET SENSOR command to retrieve the value of the sensor and output it to the screen once before we set the value to see what the default is and once after to see how the mapper changed it, if it did. The expected result is that the default value is 0, and then after we set the value to 1, it should be 10 as we are scaling it by 10. So the value should be multiplied by 10.
+Answer: 	The expected results are for the GET SENSOR command to retrieve the value of the sensor and 		output it to the screen once before we set the value to see what the default is and once after to 		see how the mapper changed it, if it did. The expected result is that the default value is 0, and 		then after we set the value to 1, it should be 10 as we are scaling it by 10. So the value should be 		multiplied by 10.
 
 5. At least one representation of the actual results. The form is your choice.
 
@@ -166,11 +166,12 @@ EXITING  |
 
 6. A brief discussion on how the actual results differ from the expected results.
 
-The value of Sensor was unchanged at 0 as 0*10 = 0, and when it was changed to 1 then it became 10, which was expected.
+Answer: 	The value of Sensor was unchanged at 0 as 0*10 = 0, and when it was changed to 1 then it 			became 10, which was expected.
 
 7. A suggestion for how to extend this test to cover related aspects not required here
 
-Reporter or Watchdog could be added in to further test how mapper alters the value.
+Answer: 	Reporter or Watchdog could be added in to further test how mapper alters the value.
+
 
 
 
@@ -212,12 +213,11 @@ Task C.3: Normalized Mapper
 
 1. The rationale behind the test; i.e., what is it testing and why we care.
 
-This is testing the creation of a normalized mapper and assigning it to a position sensor, and then getting it’s value.
-We care about this because it shows that the normalized mapper creation is working and that it gets assigned to a sensor.
+Answer: 	This is testing the creation of a normalized mapper and assigning it to a position sensor, and 		then getting it’s value. We care about this because it shows that the normalized mapper creation 		is working and that it gets assigned to a sensor.
 
 2. A general English description of the initial conditions of the test.
 
-The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The mapper must be made before the sensor, the actuators need to be made before the reporter, and the reporter needs to be made before the sensor.
+Answer: 	The initial conditions are that there is no mapper, no sensor, no actuators, and no reporters. The 		mapper must be made before the sensor, the actuators need to be made before the reporter, and 		the reporter needs to be made before the sensor.
 
 3. The commands for (2), which must appear in a standalone form that could be directly copied into a text file to reproduce the test without manual intervention. Do not cross-reference other tests.
 
@@ -230,15 +230,9 @@ SET SENSOR mySensor3 VALUE 15
 GET SENSOR mySensor3 VALUE
 @exit
 
-
-
-
-
-
-
 4. A brief English narrative of the expected results of executing the test. (Proper testing discipline expects that you do this before running the test.)
 
-The expected results are for the GET SENSOR command to retrieve the value of the sensor and output it to the screen once before we set the value to see what the default is and once after to see how the mapper changed it, if it did. The expected value at the default is 0 as 0 lies outside the bounds of 10 and 20 so it is 0. After it’s set to 15 it should return a value of 50 as 50 is halfway between 10 and 20.
+Answer: 	The expected results are for the GET SENSOR command to retrieve the value of the sensor and 		output it to the screen once before we set the value to see what the default is and once after to 		see how the mapper changed it, if it did. The expected value at the default is 0 as 0 lies outside 		the bounds of 10 and 20 so it is 0. After it’s set to 15 it should return a value of 50 as 50 is 			halfway between 10 and 20.
 
 
 5. At least one representation of the actual results. The form is your choice.
@@ -277,10 +271,10 @@ EXITING  |
 
 6. A brief discussion on how the actual results differ from the expected results.
 
-The actual results is that at the default it remained 0 then after we set it to 15 it turned into 50.0 which was the expected value.
+Answer: 	The actual results is that at the default it remained 0 then after we set it to 15 it turned into 50.0 		which was the expected value.
 
 7. A suggestion for how to extend this test to cover related aspects not required here.
 
-Reporter or Watchdog could be added in to further test how mapper alters the value.
+Answer: 	Reporter or Watchdog could be added in to further test how mapper alters the value.
 
 
