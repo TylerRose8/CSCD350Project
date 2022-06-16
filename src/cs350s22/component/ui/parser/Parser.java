@@ -36,8 +36,13 @@ public class Parser implements ParserConstants {
     }
 
     public static ArrayList<Identifier> getSetOfIds(String command, String startKeyWord){
+        //handle s vs no s
         if(!startKeyWord.toUpperCase().endsWith("S")){
+            String word = startKeyWord;
             startKeyWord = startKeyWord.toUpperCase() + "S";
+            if(!command.toUpperCase().contains(startKeyWord)) {
+                command = command.replaceFirst(word, startKeyWord);
+            }
         }
         String[] items = command.split(startKeyWord);
         items = items[1].trim().split(" ");
