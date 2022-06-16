@@ -70,8 +70,8 @@ public class ParseController {
         					}
         				}
         				else if(command[i].equalsIgnoreCase("COMPONENTS")) {
+        					i++;
         					for(; i < command.length; i++) {
-        						i++;
             					comp = command[i];
             					compID = Identifier.make(comp);
             					if(parserHelper.getSymbolTableController().contains(compID)) {

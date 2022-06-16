@@ -25,19 +25,29 @@ public class Startup
       
       // this command must come first. The filenames do not matter here
       startup.parse("@CONFIGURE LOG \"a.txt\" DOT SEQUENCE \"b.txt\" NETWORK \"c.txt\" XML \"d.txt\"");
-      
+      //startup.parse("CREATE ACTUATOR LINEAR myActuator0 ACCELERATION LEADIN 0.1 LEADOUT -0.2 RELAX 0.3 VELOCITY LIMIT 5 VALUE MIN 1 MAX 10 INITIAL 2 JERK LIMIT 3");
       //test C.1: PASSTHROUGH
       /*startup.parse("CREATE MAPPER myMapper EQUATION PASSTHROUGH");
-      startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");
-      startup.parse("GET SENSOR mySensor1 VALUE");
+      startup.parse("CREATE SENSOR POSITION mySensor1 MAPPER myMapper");*/
+      //startup.parse("CREATE CONTROLLER FORWARDING myController1 WITH COMPONENTS mySensor1");
+      /*startup.parse("GET SENSOR mySensor1 VALUE");
       startup.parse("SET SENSOR mySensor1 VALUE 10");
       startup.parse("GET SENSOR mySensor1 VALUE");*/
+      //startup.parse("@CLOCK WAIT FOR 5");
+      //startup.parse("BUILD NETWORK WITH COMPONENTS myActuator0");
 
-      //test C.2: SCALED
+      startup.parse("CREATE WATCHDOG BAND myWatchdog1 MODE INSTANTANEOUS THRESHOLD LOW 1 HIGH 3");
+      startup.parse("CREATE WATCHDOG BAND myWatchdog2 MODE INSTANTANEOUS THRESHOLD LOW 10 HIGH 30");
+      startup.parse("CREATE SENSOR POSITION mySensor1 WATCHDOGS myWatchdog1 myWatchdog2");
+      startup.parse("BUILD NETWORK WITH COMPONENTS mySensor1");
+      startup.parse("SET SENSOR mySensor1 VALUE 2");
+
       
+      //test C.2: SCALED
+      /*
       startup.parse("CREATE MAPPER myMapper2 EQUATION SCALE 10");
       startup.parse("CREATE SENSOR POSITION mySensor2 MAPPER myMapper2");
-      startup.parse("CREATE CONTROLLER FORWARDING myController1 WITH COMPONENTS mySensor2");
+      startup.parse("CREATE CONTROLLER FORWARDING myController2 WITH COMPONENTS mySensor2");
       startup.parse("GET SENSOR mySensor2 VALUE");
       startup.parse("SET SENSOR mySensor2 VALUE 1");
       startup.parse("GET SENSOR mySensor2 VALUE");
@@ -46,11 +56,11 @@ public class Startup
       
       startup.parse("CREATE MAPPER myMapper3 EQUATION NORMALIZE 10 20");
       startup.parse("CREATE SENSOR POSITION mySensor3 MAPPER myMapper3");
-      startup.parse("CREATE CONTROLLER FORWARDING myController2 WITH COMPONENTS mySensor3");
+      startup.parse("CREATE CONTROLLER FORWARDING myController3 WITH COMPONENTS mySensor3");
       startup.parse("GET SENSOR mySensor3 VALUE");
       startup.parse("SET SENSOR mySensor3 VALUE 15");
       startup.parse("GET SENSOR mySensor3 VALUE");
-      
+      */
       // run your tests like this
       startup.parse("@exit");
    }
