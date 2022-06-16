@@ -5,11 +5,10 @@ A1, C1, C2, C3, C4, D1, D2, D3, E1, E2, E3, E4, E5, E6, F1, G1, G2, H1, I1, I2, 
 
 TODO: <br>
 Ryan:<br>
-C - mapper, 4 commands - IMPLEMENTED - NEEDS TESTING <br>
-E - 1-6 + PART 2 are IMPLEMENTED - NEEDS TESTING <br>
-F - network commands - IMPLEMENTED - NEEDS TESTING<br>
-The Mapper commands are done unless a bug is found in testing.
-
+B - Controller - 1 - Done <br>
+C - mapper, 4 commands - IMPLEMENTED - Done <br>
+E - 1-6 + PART 2 are IMPLEMENTED - Done <br>
+F - network commands - IMPLEMENTED - Done<br>
 
 Tyler:<br>
 A - Actuator command, IMPLEMENTED, probably NEEDS TESTING <br>
