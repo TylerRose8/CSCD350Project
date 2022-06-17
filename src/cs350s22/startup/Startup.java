@@ -1,3 +1,8 @@
+/**
+ * @Author Tyler Rose
+ * @Author Spencer West
+ * @Author Ryan Golden
+ */
 package cs350s22.startup;
 
 import cs350s22.component.logger.LoggerActuator;

@@ -1,3 +1,8 @@
+/**
+ * @Author Tyler Rose
+ * @Author Spencer West
+ * @Author Ryan Golden
+ */
 package cs350s22.component.ui.parser;
 
 import cs350s22.component.A_Component;
