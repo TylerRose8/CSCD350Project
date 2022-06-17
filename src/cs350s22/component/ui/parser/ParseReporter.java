@@ -27,17 +27,9 @@ public class ParseReporter {
         //Get notify ids
         Scanner in = new Scanner(command.substring(command.toUpperCase().indexOf("NOTIFY") + 7));
         String next = in.next();
-        ArrayList<Identifier> notifyIds = new ArrayList<>();
-        while (next.equalsIgnoreCase("GROUPS") || next.equalsIgnoreCase("GROUP")) {
-            notifyIds.add(Identifier.make(in.next()));
-        }
-        next = in.next();
-        ArrayList<Identifier> groupIds = new ArrayList<>();
-
+        ArrayList<Identifier> notifyIds = Parser.getSetOfIds(command,"IDS","GROUPS","DELA");
         //Get group ids
-        while (next.equalsIgnoreCase("FREQUENCY") || next.equalsIgnoreCase("DELTA")) {
-            groupIds.add(Identifier.make(in.next()));
-        }
+        ArrayList<Identifier> groupIds = Parser.getSetOfIds(command,"GROUPS", "DELTA");
 
         //Create the reporter and add it to the network
         A_Reporter reporter;
