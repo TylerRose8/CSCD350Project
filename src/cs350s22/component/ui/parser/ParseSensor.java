@@ -62,10 +62,26 @@ public class ParseSensor {
 	                idTwo = Identifier.make(argslist[i]);
 	                repoList.add(parserHelper.getSymbolTableReporter().get(idTwo));
 	        		break;
+	        	case "RERPORTERS":
+	        		i++;
+	        		while(argslist[i].toUpperCase().equals("WATCHDOG") || argslist[i].toUpperCase().equals("WATCHDOGS") || argslist[i].toUpperCase().equals("MAPPER") || i < argslist.length-1) {
+	        			idTwo = Identifier.make(argslist[i]);
+	        			repoList.add(parserHelper.getSymbolTableReporter().get(idTwo));
+	        			i++;
+	        		}
+	        		break;
 	        	case "WATCHDOG":
 	        		i++;
 	                idThree = Identifier.make(argslist[i]);
 	                watchdogList.add(parserHelper.getSymbolTableWatchdog().get(idThree));
+	        		break;
+	        	case "WATCHDOGS":
+	        		i++;
+	        		while(argslist[i].toUpperCase().equals("MAPPER") || i < argslist.length-1) {
+	        			idThree = Identifier.make(argslist[i]);
+	                	watchdogList.add(parserHelper.getSymbolTableWatchdog().get(idThree));
+	        			i++;
+	        		}
 	        		break;
 	        	case "MAPPER":
 	        		i++;
